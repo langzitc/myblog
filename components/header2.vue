@@ -2,7 +2,7 @@
 		<div class="header-wrap" style="height:41px">
 				<el-header style="height:41px;line-height:41px;width:100%">
 						<el-row class="clearfix">
-							<el-col :span="12">
+							<el-col :xs="{span:12}" :sm="12" :md="6" :lg="4">
 									<div class="logo">
 										<img src="../static/TB1BQh7LpXXXXcJXFXXXXXXXXXX-198-46.gif" alt="">
 										<div class="logo-text">
@@ -12,7 +12,19 @@
 										</div>
 									</div>
 							</el-col>
-							<el-col :span="12" hidden-sm-only class="text-right">
+							<el-col :xs="{span:12}" :sm="12" class="text-right hidden-md-and-up">
+									<i class="el-icon-menu head-nav-menu"></i>
+							</el-col>
+							<el-col :md="18" :lg="20"  class="text-right hidden-sm-and-down">
+									<nav class="header-nav-list">
+											<li class="header-nav-list-item active">首页</li>
+											<li class="header-nav-list-item">资讯</li>
+											<li class="header-nav-list-item">作品</li>
+											<li class="header-nav-list-item">心情</li>
+											<li class="header-nav-list-item">社区</li>
+											<li class="header-nav-list-item">关于我</li>
+											<li class="header-nav-list-item">留言</li>
+									</nav>
 									<el-button type="primary" size="mini" @click="showLogin = true">登录</el-button>
 									<el-button type="ghost" size="mini" @click="register">注册</el-button>
 									<el-dialog

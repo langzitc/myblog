@@ -133,6 +133,7 @@
 				</el-card>					
 			</el-col>
 		</el-row>
+		<friend-link></friend-link>
 	</section>
 	<page-footer></page-footer>		
 	</div>
@@ -141,6 +142,7 @@
 <script>
 import Header from '../components/header'
 import PageFooter from '../components/footer'
+import FriendLink from '../components/friendlink'
 export default {
 	data () {
 		return {
@@ -164,7 +166,8 @@ export default {
 	},
 	components: {
 		Header,
-		PageFooter
+		PageFooter,
+		FriendLink
 	}    
 }
 </script>

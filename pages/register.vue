@@ -51,12 +51,14 @@
             </el-form-item>
             </el-form>            
         </el-card>
+        <friend-link style="margin-top:140px"></friend-link>
         <page-footer></page-footer>
 	</div>  
 </template>
 <script>
 import Header2 from '../components/header2'
 import PageFooter from '../components/footer'
+import FriendLink from '../components/friendlink'
 export default {
     name: 'register',
 	data () {
@@ -127,7 +129,8 @@ export default {
 	},
 	components: {
 		Header2,
-        PageFooter
+        PageFooter,
+        FriendLink
 	}    
 }
 </script>
