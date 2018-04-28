@@ -1,5 +1,5 @@
 <template>
-	<el-container>
+	<div>
 		<Header2></Header2>
         <el-card class="register-box-card">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -51,10 +51,12 @@
             </el-form-item>
             </el-form>            
         </el-card>
-	</el-container>  
+        <page-footer></page-footer>
+	</div>  
 </template>
 <script>
 import Header2 from '../components/header2'
+import PageFooter from '../components/footer'
 export default {
     name: 'register',
 	data () {
@@ -124,7 +126,8 @@ export default {
       }			
 	},
 	components: {
-		Header2
+		Header2,
+        PageFooter
 	}    
 }
 </script>

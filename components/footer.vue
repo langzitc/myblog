@@ -1,7 +1,6 @@
 <template>
-	<div>
-				Copyright © 2011-2018 SegmentFault. 当前呈现版本 17.06.16
-				浙ICP备 15005796号-2   浙公网安备 33010602002000号 杭州堆栈科技有限公司版权所有	
+	<div class="page-footer">
+		蜀ICP备17042550号 33010602002000号 阿正版权所有	
 	</div>
 </template>
 
@@ -16,5 +15,17 @@
 	}
 </script>
 
-<style>
+<style lang="less">
+	.page-footer{
+		text-align: center;
+		height: 40px;
+		line-height: 40px;
+		background: #333;
+		color: #fff;
+		font-size: 12px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
 </style>
