@@ -20,7 +20,7 @@
 											<li class="header-nav-list-item active">首页</li>
 											<li class="header-nav-list-item">资讯</li>
 											<li class="header-nav-list-item">作品</li>
-											<li class="header-nav-list-item">心情</li>
+											<li class="header-nav-list-item">说说</li>
 											<li class="header-nav-list-item">社区</li>
 											<li class="header-nav-list-item">关于我</li>
 											<li class="header-nav-list-item">留言</li>

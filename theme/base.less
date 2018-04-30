@@ -22,7 +22,7 @@
     line-height: 41px;
     background-color: #333;
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     left: 0;
     top: 0;
     .logo{
@@ -69,6 +69,7 @@
     width: 100%;
     height: 600px;
     padding-top: 41px;
+    z-index: 9999999;
     box-sizing: border-box;
     background-image: -webkit-linear-gradient(92deg,#21d376,#00c8f2);
     animation: text-filter 60s 5s infinite linear;	   
@@ -258,5 +259,63 @@ a{
         .el-tag + .el-tag{
             margin-left: 5px;
         }
+    }
+}
+.tag-list{
+    .el-button{
+        width: 100%;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+}
+[class*=" ion-"], [class^=ion-]{
+    margin-right: 5px;
+    transform: scale(1.2)
+}
+.el-breadcrumb__inner, .el-breadcrumb__inner a{
+    color: #333;
+    font-weight: 400;
+    text-decoration: none;
+}
+.box-card-2{
+    dl,dt,dd{
+        width: 100%;
+    }
+    dd{
+        margin-top: 5px;
+    }
+    img{
+        width: 100%;
+        height: 300px;
+    }
+}
+.box-card-3{
+    dl,dt,dd{
+        width: 100%;
+    }
+    dd{
+        margin-top: 5px;
+    }
+    img{
+        width: 100%;
+        height: 600px;
+    }
+}
+.pic-dd-desc{
+
+}
+.pic-dd-title{
+    color: #777;
+    font-size: 14px;
+}
+.talk-con-wrap{
+    position: relative;
+    padding: 15px 15px 15px 110px;
+    .talk-con-wrap-left{
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        left: 15px;
+        top: 15px;
     }
 }

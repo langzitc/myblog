@@ -23,9 +23,6 @@
 		background: #333;
 		color: #fff;
 		font-size: 12px;
-		position: absolute;
-		bottom: 0;
-		left: 0;
 		width: 100%;
 	}
 </style>

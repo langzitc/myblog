@@ -1,5 +1,5 @@
 <template>
-    <el-alert type="info" :closable="false" style="margin:20px 0">
+    <el-alert type="info" title="" :closable="false" style="margin:20px 0;z-index:99">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>

@@ -11,7 +11,8 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css'}
+      { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css'},
+      { rel: 'stylesheet', type: 'text/css', href: 'http://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css'}
     ]
   },
   /*

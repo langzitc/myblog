@@ -55,62 +55,73 @@
                     </el-col>
                     <el-col :sm="24" :md="10" :lg="8" class="ce-box">
                         <el-card class="box-card-1">
-                            <div slot="header" class="clearfix">
-                                <span class="card-title">推荐文章</span>
-                                <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-more"></el-button>
-                            </div>
-                            <div class="article-list">
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
+                                <div slot="header" class="clearfix">
+                                        <span class="card-title">热门标签</span>
+                                        <el-button style="float: right; padding: 3px 0" type="text" icon="ion-ios-pricetags-outline"></el-button>
+                                </div>
+                                <div class="tag-list">
+                                    <el-row :gutter="15">
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-ios-navigate" style="color: #339999;font-size:14px"></i>Web前端</el-button>
                                         </el-col>
-                                    </el-row>							
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-nodejs" style="color: #669933;font-size:14px"></i>NodeJS</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-javascript" style="color: #660000;font-size:14px"></i>JS</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-sass" style="color: #666600;font-size:14px"></i>CSS</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-aperture" style="color: #660000;font-size:14px"></i>数据库</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-map" style="color: #CC3399;font-size:14px"></i>设计</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-windows" style="color: #663366;font-size:14px"></i>服务器</el-button>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-code-working" style="color: #999933;font-size:14px"></i>PHP</el-button>
+                                        </el-col>	
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-codepen" style="color: #990033;font-size:14px"></i>JAVA</el-button>
+                                        </el-col>	
+                                        <el-col :span="12">
+                                            <el-button><i class="ion-social-html5" style="color: #CC3366;font-size:14px"></i>H5</el-button>
+                                        </el-col>																																																																																																						
+                                    </el-row>																	
                                 </div>	
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
-                                        </el-col>
-                                    </el-row>							
-                                </div>	
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
-                                        </el-col>
-                                    </el-row>							
-                                </div>																		
-                            </div>	
                         </el-card> 
                         <el-card class="box-card-1">
-                            <div slot="header" class="clearfix">
-                                <span class="card-title">推荐文章</span>
-                                <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-more"></el-button>
-                            </div>
-                            <div class="article-list">
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
-                                        </el-col>
-                                    </el-row>							
+                                <div slot="header" class="clearfix">
+                                        <span class="card-title">推荐文章</span>
+                                        <el-button style="float: right; padding: 3px 0" type="text" icon="ion-heart-broken"></el-button>
+                                </div>
+                                <div class="article-list">
+                                        <div class="article-list-item">
+                                                <el-row>
+                                                        <el-col :span="24">
+                                                                <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
+                                                        </el-col>
+                                                </el-row>							
+                                        </div>	
+                                        <div class="article-list-item">
+                                                <el-row>
+                                                        <el-col :span="24">
+                                                                <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
+                                                        </el-col>
+                                                </el-row>							
+                                        </div>	
+                                        <div class="article-list-item">
+                                                <el-row>
+                                                        <el-col :span="24">
+                                                                <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
+                                                        </el-col>
+                                                </el-row>							
+                                        </div>																		
                                 </div>	
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
-                                        </el-col>
-                                    </el-row>							
-                                </div>	
-                                <div class="article-list-item">
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <span class="article-list-title">是的卡号是单卡斯柯达斯柯达石达开撒娇的</span>
-                                        </el-col>
-                                    </el-row>							
-                                </div>																		
-                            </div>	
                         </el-card>                                            
                     </el-col>
                 </el-row>
