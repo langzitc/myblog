@@ -13,7 +13,17 @@
 									</div>
 									<div class="head-music">
 										<el-button type="text" icon="ion-headphone"></el-button>
-										<span class="head-music-title">周杰伦-发如雪</span>
+										<div class="head-music-title-wrap">
+											<span class="head-music-title">周杰伦-发如雪-思考的建设靠大家sdsadsdsadasdsa</span>
+										</div>
+										<!--<el-button class="play-icon" type="text" icon="ion-ios-play"></el-button>-->
+										<div class="play-icon playing">
+											<div class="play paly1"></div>
+											<div class="play paly2"></div>
+											<div class="play paly3"></div>
+											<div class="play paly4"></div>
+											<div class="play paly5"></div>
+										</div>
 									</div>									
 							</el-col>
 							<el-col :xs="{span:12}" :sm="12" class="text-right hidden-md-and-up">

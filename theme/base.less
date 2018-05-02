@@ -7,6 +7,24 @@
 	    filter: hue-rotate(-360deg);
 	}
 }
+@keyframes toolp{
+    0%,100% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+    50%{
+        transform: scaleY(.5);
+        transform-origin: bottom;
+    }
+}
+@keyframes scroll{
+    0%,100% {
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(-100%);
+    }
+}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .text-left{
     text-align: left;
@@ -27,14 +45,67 @@
     top: 0;
     .head-music{
         position: absolute;
-        width: 150px;
+        width: 200px;
         left: 200px;
         top: 0;
         height: 41px;
+        .head-music-title-wrap{
+            overflow: hidden;
+            width: 130px;
+            height: 40px;
+            position: absolute;
+            top: 0;
+            right: 0;             
+        }
         .head-music-title{
             color: #ffffff;
             font-size: 12px;
-            padding-left: 10px;
+            width: 130px;
+            display: inline-block;
+            white-space: nowrap;
+            height: 40px;  
+            animation: scroll linear 10s infinite;         
+        }
+        .play-icon{
+            position: absolute;
+            top: 3px;
+            left: 25px;
+            &.playing{
+                width: 25px;
+                height: 20px;
+                top: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                .play{
+                    width: 3px;
+                    background: #ffffff;
+                    animation-name: toolp;
+                    animation-duration: .5s;
+                    animation-timing-function: ease-in-out;
+                    animation-iteration-count: infinite;
+                    &.paly1{
+                        height: 5px;
+                        animation-delay: .25s;
+                    }
+                    &.paly2{
+                        height: 11px;
+                        animation-delay: .15s;
+                    }
+                    &.paly3{
+                        height: 5px;
+                        animation-delay: .35s;
+                    }
+                    &.paly4{
+                        height: 8px;
+                        animation-delay: .15s;
+                    }
+                    &.paly5{
+                        height: 12px;
+                        animation-delay: .45s;
+                    }                                                                                
+                }
+            }
         }
     }
     .logo{
