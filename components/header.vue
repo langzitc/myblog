@@ -2,7 +2,7 @@
 		<div class="header-wrap">
 				<el-header style="height:41px;line-height:41px;width:100%">
 						<el-row>
-							<el-col :xs="{span:12}" :sm="12" :md="6" :lg="4">
+							<el-col :xs="{span:12}" :sm="12" :md="8" :lg="4">
 									<div class="logo">
 										<img src="../static/TB1BQh7LpXXXXcJXFXXXXXXXXXX-198-46.gif" alt="">
 										<div class="logo-text">
@@ -11,11 +11,15 @@
 											</span>
 										</div>
 									</div>
+									<div class="head-music">
+										<el-button type="text" icon="ion-headphone"></el-button>
+										<span class="head-music-title">周杰伦-发如雪</span>
+									</div>									
 							</el-col>
 							<el-col :xs="{span:12}" :sm="12" class="text-right hidden-md-and-up">
 									<i class="el-icon-menu head-nav-menu"></i>
 							</el-col>
-							<el-col :md="18" :lg="20"  class="text-right hidden-sm-and-down">
+							<el-col :md="16" :lg="20"  class="text-right hidden-sm-and-down">
 									<nav class="header-nav-list">
 											<li class="header-nav-list-item active">首页</li>
 											<li class="header-nav-list-item">资讯</li>
