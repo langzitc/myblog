@@ -24,6 +24,7 @@ const store = () => new Vuex.Store({
   state: {
     tocken: '',
     current_page: {},
+    showSelectMusic: false,
     user: {
     	nickName: '章子怡'
     },
@@ -36,6 +37,9 @@ const store = () => new Vuex.Store({
 		},
 		login (state, user) {
 			Object.assign(state.user,user);
+		},
+		toggleSelectMusic (state,status) {
+			state.showSelectMusic = status;
 		}
   },
   actions: {
@@ -55,6 +59,22 @@ const store = () => new Vuex.Store({
   	},
   	register ({commit,dispatch},playload) {
   		
+  	},
+  	getMusic ({commit,dispatch},payload) {
+  			let params = {
+		  			method: 'baidu.ting.billboard.billList',
+		  			type: 1,
+		  			offset: 0,
+		  			size: 10  				
+  			}
+  			Object.assign(params,payload);
+				return new Promise((resolve,reject)=>{
+		  		axios.post('http://localhost:4000/api/public/search_song',params).then(res=>{
+		  			resolve(res);
+		  		}).catch(e=>{
+		  			throw new Error(e)
+		  		})
+				})
   	}
   }
 })

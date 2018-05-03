@@ -12,7 +12,7 @@
 										</div>
 									</div>
 									<div class="head-music">
-										<el-button type="text" icon="ion-headphone"></el-button>
+										<el-button @click="toggleSelectMusic" type="text" icon="ion-headphone"></el-button>
 										<div class="head-music-title-wrap">
 											<span class="head-music-title">周杰伦-发如雪-思考的建设靠大家sdsadsdsadasdsa</span>
 										</div>
@@ -23,6 +23,9 @@
 											<div class="play paly3"></div>
 											<div class="play paly4"></div>
 											<div class="play paly5"></div>
+										</div>
+										<div class="select-music-plane" :class="showSelectMusic ? 'show' : 'hide'">
+											<music-plane></music-plane>										
 										</div>
 									</div>									
 							</el-col>
@@ -143,6 +146,7 @@
 
 <script>
 	import {mapState} from 'vuex'
+	import MusicPlane from './MusicPlane'
 	let scroll = null;
 	export default {
 		name: 'page-header',
@@ -160,9 +164,20 @@
 					path: '/register'
 				});
 			},
+			toggleSelectMusic () {
+				this.$store.commit('toggleSelectMusic',!this.showSelectMusic);
+			},
 			submit () {
 				this.btnLoading = true;
 			}
+		},
+		computed: {
+			...mapState({
+				showSelectMusic: state => state.showSelectMusic
+			})
+		},
+		components: {
+			MusicPlane
 		}
 	}
 </script>
