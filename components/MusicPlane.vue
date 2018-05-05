@@ -15,7 +15,7 @@
 				<img class="song-pic" :src="el.album_500_500" alt="" />
 				<span class="song-title">{{el.title}}</span>
 				<span class="song-author">{{el.author}}</span>
-				<el-button class="song-icon" type="text" icon="ion-play" @click="playing(el)"></el-button>
+				<el-button class="song-icon" type="text" :icon="song.songinfo&&song.songinfo.song_id&&song.songinfo.song_id === el.song_id ? 'ion-ios-pause' : 'ion-play'" @click="playing(el)"></el-button>
 			</li>
 		</nav>
 		<el-pagination
@@ -25,13 +25,11 @@
 		  :current-page.sync="page"
 		  :total="1000">
 		</el-pagination>    
-		<audio class="audio" autoplay="autoplay" ref="audio" :src="songSrc">
-			
-		</audio>
   </el-tabs>		
 </template>
 
 <script>
+	let audio = null;
 	export default {
 		name: 'music-plane',
 		data () {
@@ -41,12 +39,8 @@
 				offset: 0,
 				size: 8,
 				page: 1,
-				songid: '589759196'
-			}
-		},
-		computed: {
-			songSrc () {
-				return 'http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.song.play&songid='+this.songid;
+				songSrc: '',
+				song: {}
 			}
 		},
 		methods: {
@@ -58,15 +52,25 @@
 				};
 				this.$store.dispatch('getMusic',params).then(res=>{
 					this.data = res.data.song_list;
-					console.log(this.data);
 				});				
 			},
 			playing (el){
-				this.songid = el.song_id;
-				setTimeout(()=>{
-					this.$refs['audio'].play();
-					console.log(this.songSrc);
-				},1000)
+				this.$store.dispatch('getMusic',{
+					method: 'baidu.ting.song.play',
+					songid: el.song_id
+				}).then(res=>{
+					this.$store.commit('playSong',res.data);
+					this.song = res.data;
+					this.songSrc = res.data.bitrate.show_link;
+					if(audio){
+						audio.pause();
+						audio.src = this.songSrc;
+					}else{
+						audio = new Audio(this.songSrc);						
+					}
+					audio.play();
+					this.$emit('playing');
+				})
 			}
 		},
 		watch: {
@@ -78,7 +82,7 @@
 				this.loadData();
 			},
 			page (v) {
-				this.offset = v-1;
+				this.offset = this.size*(v-1);
 			}
 		},
 		mounted () {

@@ -1,6 +1,6 @@
 <template>
-	<div>
-	<Header2></Header2>
+	<div class="personal-app-wrap">
+	<!--<Header2></Header2>-->
 	<div class="jl-box">
 		<div class="jl-loading" :class="showLoading ? '' : 'hide'">
 			<div class="loader">
@@ -9,6 +9,20 @@
 		</div>
 		<div class="jl-wrap">
 			<div class="swiper-container">
+				<div class="zdy-pagination">
+					<div class="zdy-pagination-item">
+						<i class="ion-ios-person"></i>
+					</div>
+					<div class="zdy-pagination-item">
+						<i class="ion-aperture"></i>
+					</div>
+					<div class="zdy-pagination-item">
+						<i class="ion-social-nodejs"></i>
+					</div>
+					<div class="zdy-pagination-item">
+						<i class="ion-ios-list"></i>
+					</div>
+				</div>
 			    <div class="swiper-wrapper">
 			        <div class="swiper-slide jbxx">
 			        	<h5 class="jl-title ani" swiper-animate-effect="fadeIn" swiper-animate-duration="0.2s" swiper-animate-delay="0.1s">基本信息</h5>
@@ -246,21 +260,18 @@
 			    </div>
 			</div>
 		</div>
-        <!--<page-footer style="position: fixed;bottom: 0;"></page-footer>-->
 	</div>  		
 	</div>
 </template>
 <script>
-import Header2 from '../components/header2'
-import PageFooter from '../components/footer'
 export default {
-    name: 'register',
+    name: 'personal',
 	data () {
 		return {
 			activeName: '',
-			keywords: 'tuch',
-			description: 'tuch',
-            title: '屠春首页',
+			keywords: 'web前端简历,阿正',
+			description: 'web前端简历,阿正',
+            title: 'web前端简历-阿正',
             swiper: null,
             showLoading: true
 		}
@@ -282,16 +293,10 @@ export default {
 	        ] 			
 		}
 	},
-	components: {
-		Header2
-	},
 	mounted () {			
 		setTimeout(()=>{
 			this.showLoading = false;
 		},1000)
-		let h = window.innerHeight;
-		document.querySelector('.jl-box').style.height = (h-41)+"px";
-		document.querySelector('.swiper-container').style.height = h+"px";
 		this.$nextTick(()=>{
 			this.swiper = new Swiper ('.swiper-container', {
 			    direction: 'vertical',
@@ -307,44 +312,61 @@ export default {
 			    }, 
 			    onSlideChangeEnd: function(swiper){ 
 			    	swiperAnimate(swiper);
-			    } 			    
+			    }	    
 			})				
 		})
 	}
 }
 </script>
 <style lang="less">
-	.jl-box{
+	.jl-box,.jl-wrap{
 		width: 100%;
+		height: 100%;
+		position: absolute;	
+		top: 0;
+		left: 0;
+		overflow: hidden;	
+	}
+	.jl-box{
 		box-sizing: border-box;
 		overflow: hidden;
 	}
 	.swiper-container {
 	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
 	}  	
 	.jl-title{
 		font-size: 20px;
 		text-align: center;
-		margin: 30px;
 	}
 	.swiper-slide{
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-repeat: no-repeat;
+		color: #fff;
+		text-shadow: rgba(0,0,0,.2) 0 1px 3px,rgba(0,0,0,.3) 0 0 6px;
+		filter: brightness(50%),hue-rotate(45deg);
 		&.jbxx{
-			background: linear-gradient(#ffffff, #0099CC 50%,#ffffff);
+			background-image: url(../static/292497.jpg);
 		}
 		&.grjj{
-			background: linear-gradient(#ffffff, #339966 50%,#ffffff);
+			background-image: url(../static/317952.jpg);
 		}	
 		&.jsz{
-			background: linear-gradient(#ffffff, #993366 50%,#ffffff);
+			background-image: url(../static/318724.jpg);
 		}	
 		&.gzjl{
-			background: linear-gradient(#ffffff, #66CCCC 50%,#ffffff);
+			background-image: url(../static/319010.jpg);
 		}		
 		&.xmjy{
-			background: linear-gradient(#ffffff, #663300 50%,#ffffff);
+			background-image: url(../static/292492.jpg);
 		}		
 		&.xqah{
-			background: linear-gradient(#ffffff, #FF9933 50%,#ffffff);
+			background-image: url(../static/262345.jpg);
 		}										
 	}
 	@keyframes loading{
@@ -403,5 +425,30 @@ export default {
 	}
 	.swiper-slide-inner{
 		
+	}
+	.zdy-pagination{
+		position: fixed;
+		right: 15px;
+		top: 50%;
+		display: flex;
+		flex-direction: column;
+		z-index: 9999999;
+		.zdy-pagination-item{
+			margin-bottom: 5px;
+			height: 30px;
+			width: 30px;
+			background: #DDDDDD;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 30px;
+			transform: scale(.8);
+			i{
+				margin-left: 5px;
+				font-size: 20px;
+			}
+			&.active{
+				background: #00FFFF;
+			}
+		}
 	}
 </style>

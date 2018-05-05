@@ -29,7 +29,10 @@ const store = () => new Vuex.Store({
     	nickName: '章子怡'
     },
     isLogin: false,
-    isValidated: false
+    isValidated: false,
+    song: {
+    	
+    }
   },
   mutations: {
 		validate (state,status) {
@@ -40,6 +43,9 @@ const store = () => new Vuex.Store({
 		},
 		toggleSelectMusic (state,status) {
 			state.showSelectMusic = status;
+		},
+		playSong (state, song) {
+			Object.assign(state.song,song);
 		}
   },
   actions: {
@@ -69,7 +75,7 @@ const store = () => new Vuex.Store({
   			}
   			Object.assign(params,payload);
 				return new Promise((resolve,reject)=>{
-		  		axios.post('http://localhost:4000/api/public/search_song',params).then(res=>{
+		  		axios.post('/public/search_song',params).then(res=>{
 		  			resolve(res);
 		  		}).catch(e=>{
 		  			throw new Error(e)

@@ -11,6 +11,23 @@
 											</span>
 										</div>
 									</div>
+									<div class="head-music">
+										<el-button @click="toggleSelectMusic" type="text" icon="ion-headphone"></el-button>
+										<div class="head-music-title-wrap">
+											<span class="head-music-title">{{song.songinfo ? song.songinfo.author : ''}}-{{song.songinfo ? song.songinfo.album_title : ''}}</span>
+										</div>
+										<!--<el-button class="play-icon" type="text" icon="ion-ios-play"></el-button>-->
+										<div class="play-icon playing">
+											<div class="play paly1"></div>
+											<div class="play paly2"></div>
+											<div class="play paly3"></div>
+											<div class="play paly4"></div>
+											<div class="play paly5"></div>
+										</div>
+										<div class="select-music-plane" :class="showSelectMusic ? 'show' : 'hide'">
+											<music-plane @playing="toggleSelectMusic"></music-plane>										
+										</div>			
+									</div>	
 							</el-col>
 							<el-col :xs="{span:12}" :sm="12" class="text-right hidden-md-and-up">
 									<i class="el-icon-menu head-nav-menu"></i>
@@ -43,11 +60,11 @@
 												</el-form-item>	
 												<el-form-item>
 													<el-input placeholder="验证码" style="width:80%">
-															<div slot="append">
-																<img width="100px" height="30px" src="../static/logo2.png" alt="">
+															<div slot="append" v-html="svgCode">
+																
 															</div>
 													</el-input>
-													<a href="#" style="margin-left:15px">换一张</a>
+													<a href="#" @click="getCode" style="margin-left:15px">换一张</a>
 												</el-form-item>																																				
 												<el-form-item>
 														<el-row>
@@ -77,6 +94,7 @@
 
 <script>
 	import {mapState} from 'vuex'
+	import MusicPlane from './MusicPlane'
 	let scroll = null;
 	export default {
 		name: 'page-header',
@@ -85,7 +103,8 @@
 				index: 0,
 				showLogin: false,
 				isRemember: true,
-				btnLoading: false
+				btnLoading: false,
+				svgCode: ''
 			}
 		},
 		methods: {
@@ -96,8 +115,28 @@
 			},
 			submit () {
 				this.btnLoading = true;
+			},
+			toggleSelectMusic () {
+				this.$store.commit('toggleSelectMusic',!this.showSelectMusic);
+			},
+			getCode () {
+				this.$http.post('/public/get_capatcha').then(res=>{
+					this.svgCode = res.img;
+				})				
 			}
-		}
+		},
+		computed: {
+			...mapState({
+				showSelectMusic: state => state.showSelectMusic,
+				song: state => state.song
+			})
+		},
+		mounted () {
+			this.getCode();
+		},
+		components: {
+			MusicPlane
+		}		
 	}
 </script>
 

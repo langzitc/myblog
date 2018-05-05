@@ -14,7 +14,7 @@
 									<div class="head-music">
 										<el-button @click="toggleSelectMusic" type="text" icon="ion-headphone"></el-button>
 										<div class="head-music-title-wrap">
-											<span class="head-music-title">周杰伦-发如雪-思考的建设靠大家sdsadsdsadasdsa</span>
+											<span class="head-music-title">{{song.songinfo ? song.songinfo.author : ''}}-{{song.songinfo ? song.songinfo.album_title : ''}}</span>
 										</div>
 										<!--<el-button class="play-icon" type="text" icon="ion-ios-play"></el-button>-->
 										<div class="play-icon playing">
@@ -25,7 +25,7 @@
 											<div class="play paly5"></div>
 										</div>
 										<div class="select-music-plane" :class="showSelectMusic ? 'show' : 'hide'">
-											<music-plane></music-plane>										
+											<music-plane @playing="toggleSelectMusic"></music-plane>										
 										</div>
 									</div>									
 							</el-col>
@@ -173,7 +173,8 @@
 		},
 		computed: {
 			...mapState({
-				showSelectMusic: state => state.showSelectMusic
+				showSelectMusic: state => state.showSelectMusic,
+				song: state => state.song
 			})
 		},
 		components: {
