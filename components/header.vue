@@ -34,16 +34,25 @@
 							</el-col>
 							<el-col :md="16" :lg="20"  class="text-right hidden-sm-and-down">
 									<nav class="header-nav-list">
-											<li class="header-nav-list-item active">首页</li>
-											<li class="header-nav-list-item">资讯</li>
-											<li class="header-nav-list-item">作品</li>
-											<li class="header-nav-list-item">说说</li>
-											<li class="header-nav-list-item">社区</li>
-											<li class="header-nav-list-item">关于我</li>
-											<li class="header-nav-list-item">留言</li>
+											<li class="header-nav-list-item active"><a href="/">首页</a></li>
+											<li class="header-nav-list-item"><a href="/articlelist">资讯</a></li>
+											<li class="header-nav-list-item"><a href="/idea">作品</a></li>
+											<li class="header-nav-list-item"><a href="/talk">说说</a></li>
+											<li class="header-nav-list-item"><a href="https://www.54tuchun.com">社区</a></li>
+											<li class="header-nav-list-item"><a href="/personal">关于我</a></li>
+											<li class="header-nav-list-item"><a href="/message">留言</a></li>
 									</nav>
-									<el-button type="primary" size="mini" @click="showLogin = true">登录</el-button>
-									<el-button type="ghost" size="mini" @click="register">注册</el-button>
+									<el-button v-if="!user.id" type="primary" size="mini" @click="showLogin = true">登录</el-button>
+									<el-button v-if="!user.id" type="ghost" size="mini" @click="register">注册</el-button>
+									<el-dropdown v-if="user.id" @command="handlerDropDown">
+									  <span class="el-dropdown-link" style="color: #fff;outline: none;border: none;">
+									    {{user.nick||user.tel}}<i class="el-icon-arrow-down el-icon--right"></i>
+									  </span>
+									  <el-dropdown-menu slot="dropdown">
+									    <el-dropdown-item command="center">个人中心</el-dropdown-item>
+									    <el-dropdown-item command="quit">退出</el-dropdown-item>
+									  </el-dropdown-menu>
+									</el-dropdown>									
 									<el-dialog
 										title=""
 										:append-to-body="true"
@@ -51,20 +60,20 @@
 										:visible.sync="showLogin"
 										width="400px"
 										center>
-										<el-form>
-												<el-form-item>
-													<el-input prefix-icon="el-icon-mobile-phone" placeholder="手机号|邮箱"></el-input>
+										<el-form  :model="loginForm" :rules="loginRules" ref="loginForm">
+												<el-form-item prop="username">
+													<el-input v-model="loginForm.username" prefix-icon="el-icon-mobile-phone" placeholder="手机号|邮箱"></el-input>
 												</el-form-item>
-												<el-form-item>
-													<el-input prefix-icon="el-icon-view" placeholder="密码" type="password"></el-input>
+												<el-form-item prop="password">
+													<el-input v-model="loginForm.password" prefix-icon="el-icon-view" placeholder="密码" type="password"></el-input>
 												</el-form-item>	
-												<el-form-item>
-													<el-input placeholder="验证码" style="width:80%">
-															<div slot="append">
-																<img width="100px" height="30px" src="../static/logo2.png" alt="">
+												<el-form-item prop="captcha_code" v-if="captcha">
+													<el-input v-model="loginForm.captcha_code" placeholder="验证码" style="width:80%">
+															<div slot="append" style="width:100px;height:30px" v-html="svgCode">
+																
 															</div>
 													</el-input>
-													<a href="#" style="margin-left:15px">换一张</a>
+													<a href="#" style="margin-left:15px" @click="getCode">换一张</a>
 												</el-form-item>																																				
 												<el-form-item>
 														<el-row>
@@ -90,53 +99,64 @@
 						</el-row>
 				</el-header>
 				<div class="banner">
-						<div class="banner-item" :class="index === 0 ? 'fadeIn' : 'fadeOut'">1</div>
-						<div class="banner-item" :class="index === 1 ? 'fadeIn' : 'fadeOut'">2</div>
-						<div class="banner-item" :class="index === 2 ? 'fadeIn' : 'fadeOut'">3</div>
-						<div class="banner-item" :class="index === 3 ? 'fadeIn' : 'fadeOut'">4</div>
+						<div class="banner-item" :class="index === 0 ? 'active' : ''">
+							<img src="../static/319010.jpg"/>
+						</div>
+						<div class="banner-item" :class="index === 1 ? 'active' : ''">
+							<img src="../static/262345.jpg"/>
+						</div>
+						<div class="banner-item" :class="index === 2 ? 'active' : ''">
+							<img src="../static/318724.jpg"/>
+						</div>
+						<div class="banner-item" :class="index === 3 ? 'active' : ''">
+							<img src="../static/317952.jpg"/>
+						</div>
 				</div>	
 				<el-row>
-						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:5,offset:1}" :lg="{span: 4,offset:2}">
+						<el-col :span="24" class="text-center" style="margin-top:20px">
+							<span style="color:#fff;font-size: 24px;">个人承接项目</span>
+						</el-col>
+						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:6}" :lg="{span: 5,offset:1}">
 									<div class="bt-wrap">
 										<div class="bt-wrap-left">
-												<i class="el-icon-info bt-icon"></i>
+												<i class="ion-ipad bt-icon"></i>
 										</div>
 										<div class="bt-wrap-right">
-											<p>是的时间看看</p>
-											<p>手机打开即可</p>
+											<p>APP</p>
+											<p>小程序、微信开发</p>
 										</div>
 									</div>								
 						</el-col>
-						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:5,offset:1}" :lg="{span: 4,offset:2}">
+						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:6}" :lg="{span: 5,offset:1}">
 									<div class="bt-wrap">
 										<div class="bt-wrap-left">
-												<i class="el-icon-info bt-icon"></i>
+												<i class="ion-aperture bt-icon"></i>
 										</div>
 										<div class="bt-wrap-right">
-											<p>是的时间看看</p>
-											<p>手机打开即可</p>
+											<p>企业官网</p>
+											<p>pc、移动网站</p>
 										</div>
 									</div>								
 						</el-col>
-						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:5,offset:1}" :lg="{span: 4,offset:2}">
+						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:6}" :lg="{span: 5,offset:1}">
 									<div class="bt-wrap">
 										<div class="bt-wrap-left">
-												<i class="el-icon-info bt-icon"></i>
+												<i class="ion-android-desktop bt-icon"></i>
 										</div>
 										<div class="bt-wrap-right">
-											<p>是的时间看看</p>
-											<p>手机打开即可</p>
+											<p>客户端</p>
+											<p>兼容windows、Mac、Linux</p>
 										</div>
 									</div>								
 						</el-col>
-						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:5,offset:1}" :lg="{span: 4,offset:2}">
+						<el-col :xs="{span:12}" :sm="{span:12}" :md="{span:6}" :lg="{span: 5,offset:1}">
 									<div class="bt-wrap">
 										<div class="bt-wrap-left">
-												<i class="el-icon-info bt-icon"></i>
+												<i class="ion-android-laptop bt-icon"></i>
 										</div>
 										<div class="bt-wrap-right">
-											<p>是的时间看看</p>
-											<p>手机打开即可</p>
+											<p>Sass系统</p>
+											<p>数据挖掘，数据分析</p>
 										</div>
 									</div>								
 						</el-col>
@@ -155,7 +175,29 @@
 				index: 0,
 				showLogin: false,
 				isRemember: true,
-				btnLoading: false
+				btnLoading: false,
+				loginForm: {
+					username: '',
+					password: '',
+					captcha_code: ''
+				},
+				loginRules: {
+					username: [{
+						required: true,
+						message: '请输入手机号或邮箱',
+						trigger: 'blur'
+					}],
+					password: [{
+						required: true,
+						message: '请输入密码',
+						trigger: 'blur'
+					}],
+					captcha_code: [{
+						required: true,
+						message: '请输入验证码',
+						trigger: 'blur'
+					}]					
+				}
 			}
 		},
 		methods: {
@@ -164,17 +206,58 @@
 					path: '/register'
 				});
 			},
+			getCode () {
+				this.$store.dispatch("getCode")			
+			},			
 			toggleSelectMusic () {
 				this.$store.commit('toggleSelectMusic',!this.showSelectMusic);
 			},
 			submit () {
-				this.btnLoading = true;
+		        this.$refs['loginForm'].validate((valid) => {
+		          if (valid){
+						this.btnLoading = true;
+						this.$store.dispatch("login",this.loginForm).then(res=>{
+							this.btnLoading = false;
+							this.showLogin = false;
+						}).catch(msg=>{
+							this.$message({
+								type: 'error',
+								message: msg
+							});
+							this.btnLoading = false;
+						})		          	
+		          }
+		        });				
+			},
+			handlerDropDown (command) {
+				switch (command) {
+					case 'center':
+						this.$router.push({
+							path: '/personal'
+						});
+					break;
+					case 'quit': 
+						this.$store.dispatch('loginout');
+					break;
+				}
 			}
+		},
+		mounted () {
+			setInterval(()=>{
+				if(this.index===3){
+					this.index = 0;
+				}else{
+					this.index++;
+				}
+			},10000);
 		},
 		computed: {
 			...mapState({
 				showSelectMusic: state => state.showSelectMusic,
-				song: state => state.song
+				song: state => state.song,
+				captcha: state => state.captcha,
+				svgCode: state => state.svgCode,
+				user: state => state.user
 			})
 		},
 		components: {

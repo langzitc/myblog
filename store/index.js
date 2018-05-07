@@ -1,22 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
-import qs from 'qs'
-axios.defaults.baseURL = "http://localhost:4000/api";
-axios.defaults.transformRequest = (data)=>{
-  if(data){
-    return  qs.stringify(data);
-  }
-  return;
-}
-axios.interceptors.response.use(function(response){
-	  return response.data;
-},function(error){
-    return Promise.reject(error);
-});
-axios.defaults.headers = {
-	'Content-type': 'application/x-www-form-urlencoded'
-}
+import Cookies from 'js-cookie'
 Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
@@ -25,11 +10,14 @@ const store = () => new Vuex.Store({
     tocken: '',
     current_page: {},
     showSelectMusic: false,
+    captcha: false,
     user: {
     	nickName: '章子怡'
     },
     isLogin: false,
     isValidated: false,
+    svgCode: '',
+    route: '',
     song: {
     	
     }
@@ -39,23 +27,37 @@ const store = () => new Vuex.Store({
 			state.isValidated = status;
 		},
 		login (state, user) {
-			Object.assign(state.user,user);
+			state.user = user;
 		},
 		toggleSelectMusic (state,status) {
 			state.showSelectMusic = status;
 		},
 		playSong (state, song) {
 			Object.assign(state.song,song);
+		},
+		captcha (state, status) {
+			state.captcha = status;
+		},
+		update_code (state,code) {
+			state.svgCode = code;
+		},
+		update_route (state, route){
+			state.route = route;
 		}
   },
   actions: {
   	login ({commit,dispatch},playload) {
 				return new Promise((resolve,reject)=>{
-		  		axios.post('/public/login',playload).then(res=>{
+		  		axios.post('/public/user_login',playload).then(res=>{
 		  			if(res.code === 200){
 		  				resolve(res);
 		  				commit('login',res.data);
+		  				Cookies.set('tuch_client_session_user',JSON.stringify(res.data))
 		  			}else{
+		  				if(res.captcha){
+		  					dispatch('getCode');
+		  					commit('captcha',true);
+		  				}
 		  				reject(res.msg);
 		  			}
 		  		}).catch(e=>{
@@ -65,6 +67,17 @@ const store = () => new Vuex.Store({
   	},
   	register ({commit,dispatch},playload) {
   		
+  	},
+  	getCode ({commit}) {
+				axios.post('/public/get_capatcha').then(res=>{
+					commit('update_code',res.img)
+				})	  		
+  	},
+  	loginout ({commit}) {
+  			axios.post("/public/user_destory").then(res=>{
+  				commit('login',{});
+  				Cookies.remove('tuch_client_session_user');
+  			});
   	},
   	getMusic ({commit,dispatch},payload) {
   			let params = {

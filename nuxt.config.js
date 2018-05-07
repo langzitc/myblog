@@ -77,9 +77,12 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/element-ui','~plugins/axios'],
+  plugins: ['~plugins/element-ui','~plugins/axios','~plugins/filter'],
   transition: {
     name: 'test',
     mode: 'out-in'
-  }  
+  },
+  router: {
+  	middleware: 'auth'
+  }
 }

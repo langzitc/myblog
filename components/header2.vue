@@ -2,7 +2,7 @@
 		<div class="header-wrap" style="height:41px">
 				<el-header style="height:41px;line-height:41px;width:100%">
 						<el-row class="clearfix">
-							<el-col :xs="{span:12}" :sm="12" :md="6" :lg="4">
+							<el-col :xs="{span:12}" :sm="12" :md="8" :lg="4">
 									<div class="logo">
 										<img src="../static/TB1BQh7LpXXXXcJXFXXXXXXXXXX-198-46.gif" alt="">
 										<div class="logo-text">
@@ -34,16 +34,25 @@
 							</el-col>
 							<el-col :md="18" :lg="20"  class="text-right hidden-sm-and-down">
 									<nav class="header-nav-list">
-											<li class="header-nav-list-item active">首页</li>
-											<li class="header-nav-list-item">资讯</li>
-											<li class="header-nav-list-item">作品</li>
-											<li class="header-nav-list-item">说说</li>
-											<li class="header-nav-list-item">社区</li>
-											<li class="header-nav-list-item">关于我</li>
-											<li class="header-nav-list-item">留言</li>
+											<li class="header-nav-list-item" :class="navitem === 'home' ? 'active' : ''"><a href="/">首页</a></li>
+											<li class="header-nav-list-item" :class="navitem === 'articlelist' ? 'active' : ''"><a href="/articlelist">资讯</a></li>
+											<li class="header-nav-list-item" :class="navitem === 'idea' ? 'active' : ''"><a href="/idea">作品</a></li>
+											<li class="header-nav-list-item" :class="navitem === 'talk' ? 'active' : ''"><a href="/talk">说说</a></li>
+											<li class="header-nav-list-item"><a href="https://www.54tuchun.com">社区</a></li>
+											<li class="header-nav-list-item" :class="navitem === 'production' ? 'active' : ''"><a href="/personal">关于我</a></li>
+											<li class="header-nav-list-item" :class="navitem === 'message' ? 'active' : ''"><a href="/message">留言</a></li>
 									</nav>
-									<el-button type="primary" size="mini" @click="showLogin = true">登录</el-button>
-									<el-button type="ghost" size="mini" @click="register">注册</el-button>
+									<el-button v-if="!user.id" type="primary" size="mini" @click="showLogin = true">登录</el-button>
+									<el-button v-if="!user.id" type="ghost" size="mini" @click="register">注册</el-button>
+									<el-dropdown v-if="user.id" @command="handlerDropDown">
+									  <span class="el-dropdown-link" style="color: #fff;outline: none;border: none;">
+									    {{user.nick||user.tel}}<i class="el-icon-arrow-down el-icon--right"></i>
+									  </span>
+									  <el-dropdown-menu slot="dropdown">
+									    <el-dropdown-item command="center">个人中心</el-dropdown-item>
+									    <el-dropdown-item command="quit">退出</el-dropdown-item>
+									  </el-dropdown-menu>
+									</el-dropdown>									
 									<el-dialog
 										title=""
 										:append-to-body="true"
@@ -51,20 +60,20 @@
 										:visible.sync="showLogin"
 										width="400px"
 										center>
-										<el-form>
-												<el-form-item>
-													<el-input prefix-icon="el-icon-mobile-phone" placeholder="手机号|邮箱"></el-input>
+										<el-form  :model="loginForm" :rules="loginRules" ref="loginForm">
+												<el-form-item prop="username">
+													<el-input v-model="loginForm.username" prefix-icon="el-icon-mobile-phone" placeholder="手机号|邮箱"></el-input>
 												</el-form-item>
-												<el-form-item>
-													<el-input prefix-icon="el-icon-view" placeholder="密码" type="password"></el-input>
+												<el-form-item prop="password">
+													<el-input v-model="loginForm.password" prefix-icon="el-icon-view" placeholder="密码" type="password"></el-input>
 												</el-form-item>	
-												<el-form-item>
-													<el-input placeholder="验证码" style="width:80%">
-															<div slot="append" v-html="svgCode">
+												<el-form-item prop="captcha_code" v-if="captcha">
+													<el-input v-model="loginForm.captcha_code" placeholder="验证码" style="width:80%">
+															<div slot="append" style="width:100px;height:30px" v-html="svgCode">
 																
 															</div>
 													</el-input>
-													<a href="#" @click="getCode" style="margin-left:15px">换一张</a>
+													<a href="#" style="margin-left:15px" @click="getCode">换一张</a>
 												</el-form-item>																																				
 												<el-form-item>
 														<el-row>
@@ -104,7 +113,28 @@
 				showLogin: false,
 				isRemember: true,
 				btnLoading: false,
-				svgCode: ''
+				loginForm: {
+					username: '',
+					password: '',
+					captcha_code: ''
+				},
+				loginRules: {
+					username: [{
+						required: true,
+						message: '请输入手机号或邮箱',
+						trigger: 'blur'
+					}],
+					password: [{
+						required: true,
+						message: '请输入密码',
+						trigger: 'blur'
+					}],
+					captcha_code: [{
+						required: true,
+						message: '请输入验证码',
+						trigger: 'blur'
+					}]					
+				}				
 			}
 		},
 		methods: {
@@ -114,25 +144,54 @@
 				});
 			},
 			submit () {
-				this.btnLoading = true;
+		        this.$refs['loginForm'].validate((valid) => {
+		          if (valid){
+						this.btnLoading = true;
+						this.$store.dispatch("login",this.loginForm).then(res=>{
+							this.btnLoading = false;
+							this.showLogin = false;
+						}).catch(msg=>{
+							this.$message({
+								type: 'error',
+								message: msg
+							});
+							this.btnLoading = false;
+						})		          	
+		          }
+		        });				
+			},
+			handlerDropDown (command) {
+				switch (command) {
+					case 'center':
+						this.$router.push({
+							path: '/personal'
+						});
+					break;
+					case 'quit': 
+						this.$store.dispatch('loginout');
+					break;
+				}
 			},
 			toggleSelectMusic () {
 				this.$store.commit('toggleSelectMusic',!this.showSelectMusic);
 			},
 			getCode () {
-				this.$http.post('/public/get_capatcha').then(res=>{
-					this.svgCode = res.img;
-				})				
+				this.$store.dispatch("getCode")			
 			}
 		},
 		computed: {
+			navitem () {
+				let i = this.$store.state.route;
+				let a = i.split('/');
+				return a[a.length-1];
+			},
 			...mapState({
 				showSelectMusic: state => state.showSelectMusic,
-				song: state => state.song
+				song: state => state.song,
+				captcha: state => state.captcha,
+				svgCode: state => state.svgCode,
+				user: state => state.user
 			})
-		},
-		mounted () {
-			this.getCode();
 		},
 		components: {
 			MusicPlane
